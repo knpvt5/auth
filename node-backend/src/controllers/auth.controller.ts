@@ -57,18 +57,19 @@ export class AuthController {
       if (user.IsSuccess && user.data?.accessToken) {
         res.cookie("accessToken", user.data.accessToken, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+          secure: process.env.NODE_ENV === "production" || process.env.NODE_ENV === "prod",
+          sameSite: process.env.NODE_ENV === "production" || process.env.NODE_ENV === "prod" ? "none" : "lax",
         });
       }
       return res.status(user.statusCode).json(user);
-    } catch (error) {
+    } catch (error: any) {
+      console.error("Login Error:", error);
       if (error instanceof ApiResponse) {
         return res.status(error.statusCode).json(error);
       }
       return res
         .status(500)
-        .json(new ApiResponse(500, false, "Internal Server Error", null));
+        .json(new ApiResponse(500, false, "Internal Server Error", error?.message || error));
     }
   }
 
