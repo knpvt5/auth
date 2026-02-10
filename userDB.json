@@ -1,0 +1,11 @@
+[
+  {
+    "_id": "dcc1f2b7-5b66-44b9-882f-5a0e2bcdb837",
+    "firstName": "karan",
+    "lastName": "",
+    "email": "karan@karan.com",
+    "password": "$2b$10$H1TS8RKLMBP75RtGlo/W7e.64mJawvgj6zcMhcoVRXXDiuCYR0pWC",
+    "createdAt": "2026-02-10T03:05:06.452Z",
+    "updatedAt": "2026-02-10T03:05:06.452Z"
+  }
+]

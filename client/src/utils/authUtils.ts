@@ -1,0 +1,28 @@
+import axios from 'axios';
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+
+export const verifyEmail = async (email: string) => {
+    try {
+        const response = await axios.post(`${API_URL}/auth/verify-email`, {
+            email,
+        });
+        return response.data;
+    } catch (error) {
+        if (error instanceof axios.AxiosError && error.response) {
+            return error.response.data;
+        }
+        console.error('Error verifying email:', error);
+        throw error;
+    }
+};
+
+/* const logout = async () => {
+    try {
+        const res = await axios.post(`${API_URL}/auth/logout`, {}, { withCredentials: true });
+        return res.data;
+    } catch (error) {
+        console.error("Error logging out:", error);
+    }
+}; */
