@@ -9,7 +9,7 @@ import { authRouter } from "./routes/auth.route.js";
 const app = express();
 const port = process.env.PORT || 8000;
 
-const dynamicCorsOptions = function (
+/* const dynamicCorsOptions = function (
   req: Request,
   callback: (err: any, options?: cors.CorsOptions) => void,
 ) {
@@ -24,8 +24,19 @@ const dynamicCorsOptions = function (
   }
   callback(null, corsOptions);
 };
+ */
+const allowedOrigins = [process.env.CLIENT_URL as string, "http://localhost:4173"];
 
-app.use(cors(dynamicCorsOptions));
+if (process.env.NODE_ENV === "prod") {
+  allowedOrigins.push("https://auth-client-eo75.onrender.com");
+}
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
